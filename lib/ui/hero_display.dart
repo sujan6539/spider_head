@@ -9,7 +9,7 @@ import '../domain/model/pharma.dart';
 class HeroDisplay extends StatelessWidget {
   final VoidCallback onLeftClicked;
   final VoidCallback onRightClicked;
-  final Pharma pharma;
+  final PharmaZ pharma;
 
   const HeroDisplay(
       {Key? key, required this.pharma, required this.onLeftClicked, required this.onRightClicked})

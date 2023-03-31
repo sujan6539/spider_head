@@ -5,36 +5,35 @@ import 'package:spider_head/dashboard.dart';
 import 'package:spider_head/domain/model/pharma.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-@Freezed
-class AppState {
-  final int defaultIndex ;
-  late int selectedItem;
-  late Pharma selectedPharma;
-  late PharmaType pharmaType;
+part 'app_providers.freezed.dart';
 
-  AppState({required this.defaultIndex}) {
-    selectedItem = defaultIndex;
-    selectedPharma = pharmaList[selectedItem];
-    pharmaType = selectedPharma.pharmaType;
-  }
-
-  void setIndex(int index) {
-    selectedItem = index;
-    selectedPharma = pharmaList[index];
-    pharmaType = selectedPharma.pharmaType;
-  }
+@freezed
+class GlobalAppState with _$GlobalAppState {
+  const factory GlobalAppState({
+    required int defaultIndex,
+    PharmaZ? selectedPharma,
+    @Default(PharmaType.G_46_LAFFODI) PharmaType pharmaType,
+    @Default(0) int selectedIndex,
+  }) = _GlobalAppState;
 }
 
-final appStateProvider = StateNotifierProvider((ref) {
+final appStateProvider = StateNotifierProvider<AppStateNotifier, GlobalAppState>((ref) {
   return AppStateNotifier();
 });
 
-class AppStateNotifier extends StateNotifier<AppState> {
-  AppStateNotifier() : super(AppState(defaultIndex: 0));
+class AppStateNotifier extends StateNotifier<GlobalAppState> {
+  AppStateNotifier() : super(const GlobalAppState(defaultIndex: 0));
 
   setIndex(int newIndex) {
-    newIndex = newIndex % pharmaList.length;
-    debugPrint("Sujan " + newIndex.toString());
-    state = state;
+    newIndex = newIndex % pharmaZList.length;
+    var oldState = state;
+    state = state.copyWith(
+        selectedIndex: newIndex,
+        selectedPharma: pharmaZList[newIndex],
+        pharmaType: pharmaZList[newIndex].pharmaType);
+    var newState = state;
+    debugPrint(oldState.toString());
+    debugPrint(newState.toString());
+    debugPrint((oldState == newState) ? 'true' : 'false');
   }
 }

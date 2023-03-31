@@ -1,10 +1,25 @@
-class Pharma {
-  String name;
-  String tag;
-  String codeName;
-  PharmaType pharmaType;
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-  Pharma(this.name, this.tag, this.codeName, this.pharmaType);
+part 'pharma.freezed.dart';
+
+// class Pharma {
+//   String name;
+//   String tag;
+//   String codeName;
+//   PharmaType pharmaType;
+//
+//   Pharma(this.name, this.tag, this.codeName, this.pharmaType);
+// }
+
+@freezed
+class PharmaZ with _$PharmaZ {
+  const factory PharmaZ({
+    required String name,
+    required String tag,
+    required String codeName,
+    required PharmaType pharmaType,
+  }) = _PharmaZ;
 }
 
 enum PharmaType {
@@ -16,10 +31,30 @@ enum PharmaType {
   B_6_OBEDIEX
 }
 
-List<Pharma> pharmaList = [
-  Pharma("Verbaluce", "123223", "B-15", PharmaType.B_15_VERBALUCE),
-  Pharma("Luvactin", "123234", "N-40", PharmaType.N_40_LUVACTIN),
-  Pharma("Obediex", "456456", "B-6", PharmaType.B_6_OBEDIEX),
-  Pharma("Phobica", "125674", "I-27", PharmaType.I_27_PHOBICA),
-  Pharma("Darkenfloxx", "145645", "I-16", PharmaType.I_16_DARKENFLOXX),
+List<PharmaZ> pharmaZList = [
+  const PharmaZ(
+      name: "Verbaluce",
+      tag: "123223",
+      codeName: "B-15",
+      pharmaType: PharmaType.B_15_VERBALUCE),
+  const PharmaZ(
+      name: "Luvactin",
+      tag: "123234",
+      codeName: "N-40",
+      pharmaType: PharmaType.N_40_LUVACTIN),
+  const PharmaZ(
+      name: "Obediex",
+      tag: "456456",
+      codeName: "B-6",
+      pharmaType: PharmaType.B_6_OBEDIEX),
+  const PharmaZ(
+      name: "Phobica",
+      tag: "125674",
+      codeName: "I-27",
+      pharmaType: PharmaType.I_27_PHOBICA),
+  const PharmaZ(
+      name: "Darkenfloxx",
+      tag: "145645",
+      codeName: "I-16",
+      pharmaType: PharmaType.I_16_DARKENFLOXX),
 ];

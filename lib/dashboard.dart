@@ -14,42 +14,25 @@ import 'domain/model/pharma.dart';
 
 typedef ActionClicked = Function(PharmaType pharmaType);
 
-class Dashboard extends ConsumerStatefulWidget {
+class Dashboard extends ConsumerWidget {
   Dashboard({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<Dashboard> createState() => _DashboardState();
-}
-
-class _DashboardState extends ConsumerState<Dashboard> {
-   Pharma? pharma = null;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //pharma = pharmaList[ref.read(appStateProvider.notifier).state];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // ref.listen(appStateProvider, (previous, next) {
-    //   setState(() {
-    //     pharma = pharmaList[next];
-    //   });
-    // });
-    var index = ref.read(appStateProvider.notifier).state;
+  Widget build(BuildContext context, WidgetRef ref) {
+    var watch = ref.watch(appStateProvider.notifier);
+    int index = watch.state.selectedIndex;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           HeroDisplay(
-            pharma: pharmaList[0],
+            pharma: watch.state.selectedPharma ??
+                pharmaZList[index],
             onLeftClicked: () {
-             // ref.read(appStateProvider.notifier).setIndex(index--);
+              ref.read(appStateProvider.notifier).setIndex(index--);
             },
             onRightClicked: () {
-              //ref.read(appStateProvider.notifier).setIndex(index++);
+              ref.read(appStateProvider.notifier).setIndex(index++);
             },
           ),
           InfoWidget(),

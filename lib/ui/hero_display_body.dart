@@ -9,7 +9,7 @@ class HeroDisplayBody extends StatefulWidget {
   final Size size;
   final VoidCallback onLeftClicked;
   final VoidCallback onRightClicked;
-  final Pharma pharma;
+  final PharmaZ pharma;
 
   const HeroDisplayBody(this.size,
       {Key? key,
