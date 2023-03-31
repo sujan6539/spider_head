@@ -14,7 +14,7 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends HookConsumerWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -34,8 +34,8 @@ class MyApp extends HookConsumerWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
           canvasColor: Colors.black,
-          // colorScheme: getColorScheme(
-          //     pharmaList[(ref.watch(appStateProvider.notifier).state)].pharmaType),
+          colorScheme: getColorScheme(
+              pharmaZList[(ref.watch(appStateProvider)).selectedIndex].pharmaType),
           textTheme: TextTheme(
               bodyMedium: TextStyle(color: Colors.white),
               bodySmall: TextStyle(color: Colors.white),
