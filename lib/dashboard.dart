@@ -19,46 +19,77 @@ class Dashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var size = MediaQuery.of(context).size;
     var tracker = ref.watch(appStateProvider);
     int index = ref.read(appStateProvider).selectedIndex;
     var pharma = tracker.selectedPharma ?? pharmaZList[index];
+    double dimen = 0;
+    if ((size.width * 0.8) > size.height * 0.4) {
+      dimen = size.height * 0.4;
+    } else {
+      dimen = size.width * 0.8;
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          HeroDisplay(
-            pharma:  pharma,
-            onLeftClicked: () {
-              index = index + 1;
-              ref.read(appStateProvider.notifier).setIndex(index);
-            },
-            onRightClicked: () {
-              index = index + 1;
-              ref.read(appStateProvider.notifier).setIndex(index);
-            },
-          ),
-          InfoWidget(),
-          Padding(padding: EdgeInsets.all(16.0)),
-          Container(
-            height: 200,
-            padding: const EdgeInsets.all(30.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24.0),
-              color: Colors.grey.shade800.withOpacity(0.8),
+          Flexible(
+            flex: 2,
+            child: HeroDisplay(
+              dimen: dimen,
+              pharma: pharma,
+              onLeftClicked: () {
+                index = index + 1;
+                ref.read(appStateProvider.notifier).setIndex(index);
+              },
+              onRightClicked: () {
+                index = index + 1;
+                ref.read(appStateProvider.notifier).setIndex(index);
+              },
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Canister(
-                  color: Colors.red,
-                  percent: 0.5,
-                  tag: 'n-10',
-                ),
-                Canister(color: Colors.pink, percent: 0.2, tag: 'b-6'),
-                Canister(color: Colors.blue, percent: 0.3, tag: 'b- 15'),
-                Canister(color: Colors.blue, percent: 0.3, tag: 'g- 46'),
-                Canister(color: Colors.purple, percent: 1.0, tag: 'i-6'),
-              ],
+          ),
+          const Flexible(flex: 1, child: InfoWidget()),
+          const Padding(padding: EdgeInsets.all(16.0)),
+          Flexible(
+            flex: 1,
+            child: Container(
+              height: 0.5 * dimen,
+              padding: const EdgeInsets.all(20.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24.0),
+                color: Colors.grey.shade800.withOpacity(0.8),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Canister(
+                    height: 0.5 * dimen,
+                    color: Colors.red,
+                    percent: 0.5,
+                    tag: 'n-10',
+                  ),
+                  Canister(
+                      height: 0.5 * dimen,
+                      color: Colors.pink,
+                      percent: 0.2,
+                      tag: 'b-6'),
+                  Canister(
+                      height: 0.5 * dimen,
+                      color: Colors.blue,
+                      percent: 0.3,
+                      tag: 'b- 15'),
+                  Canister(
+                      height: 0.5 * dimen,
+                      color: Colors.blue,
+                      percent: 0.3,
+                      tag: 'g- 46'),
+                  Canister(
+                      height: 0.5 * dimen,
+                      color: Colors.purple,
+                      percent: 1.0,
+                      tag: 'i-6'),
+                ],
+              ),
             ),
           )
         ],

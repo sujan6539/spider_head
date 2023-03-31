@@ -6,9 +6,14 @@ class Canister extends StatefulWidget {
   final Color color;
   final double percent;
   final String tag;
+  final double height;
 
   const Canister(
-      {Key? key, required this.color, required this.percent, required this.tag})
+      {Key? key,
+      required this.height,
+      required this.color,
+      required this.percent,
+      required this.tag})
       : super(key: key);
 
   @override
@@ -34,17 +39,22 @@ class _CanisterState extends State<Canister>
 
   @override
   Widget build(BuildContext context) {
+    double width = 0.3 * widget.height;
     return Stack(
       children: [
         Positioned(
           top: 0,
           bottom: 0,
           child: Container(
-            height: 135,
-            width: 42,
+            height: widget.height,
+            width: 40,
+            foregroundDecoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2)
+            ),
             decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(16.0)),
+                borderRadius: BorderRadius.circular(16.0),
+                boxShadow: [BoxShadow(spreadRadius: 2.0)]),
           ),
         ),
         AnimatedBuilder(
@@ -61,7 +71,7 @@ class _CanisterState extends State<Canister>
                   ).createShader(rect);
                 },
                 child: Container(
-                  height: 120,
+                  height: widget.height - 10,
                   width: 40,
                   child: ImageIcon(
                     AssetImage('assets/images/vial.png'),

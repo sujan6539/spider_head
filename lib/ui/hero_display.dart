@@ -10,15 +10,21 @@ class HeroDisplay extends StatelessWidget {
   final VoidCallback onLeftClicked;
   final VoidCallback onRightClicked;
   final PharmaZ pharma;
+  final double dimen;
 
   const HeroDisplay(
-      {Key? key, required this.pharma, required this.onLeftClicked, required this.onRightClicked})
+      {Key? key,
+      required this.dimen,
+      required this.pharma,
+      required this.onLeftClicked,
+      required this.onRightClicked})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    var newSize = Size(size.width - 60, size.width - 60);
+    // var size = MediaQuery.of(context).size;
+    // var newSize = Size(size.width - 60, size.width - 60);
+    var newSize = Size(dimen, dimen);
     return SafeArea(
       child: Center(
         child: Padding(
