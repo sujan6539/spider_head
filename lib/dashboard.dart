@@ -19,20 +19,22 @@ class Dashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var watch = ref.watch(appStateProvider.notifier);
-    int index = watch.state.selectedIndex;
+    var tracker = ref.watch(appStateProvider);
+    int index = ref.read(appStateProvider).selectedIndex;
+    var pharma = tracker.selectedPharma ?? pharmaZList[index];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
           HeroDisplay(
-            pharma: watch.state.selectedPharma ??
-                pharmaZList[index],
+            pharma:  pharma,
             onLeftClicked: () {
-              ref.read(appStateProvider.notifier).setIndex(index--);
+              index = index + 1;
+              ref.read(appStateProvider.notifier).setIndex(index);
             },
             onRightClicked: () {
-              ref.read(appStateProvider.notifier).setIndex(index++);
+              index = index + 1;
+              ref.read(appStateProvider.notifier).setIndex(index);
             },
           ),
           InfoWidget(),

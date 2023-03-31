@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:spider_head/dashboard.dart';
 import 'package:spider_head/domain/model/pharma.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'dart:core';
 
 part 'app_providers.freezed.dart';
 
@@ -25,7 +26,7 @@ class AppStateNotifier extends StateNotifier<GlobalAppState> {
   AppStateNotifier() : super(const GlobalAppState(defaultIndex: 0));
 
   setIndex(int newIndex) {
-    newIndex = newIndex % pharmaZList.length;
+    newIndex = newIndex.abs() % pharmaZList.length;
     var oldState = state;
     state = state.copyWith(
         selectedIndex: newIndex,
