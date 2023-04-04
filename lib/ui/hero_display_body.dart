@@ -10,10 +10,12 @@ class HeroDisplayBody extends StatefulWidget {
   final VoidCallback onLeftClicked;
   final VoidCallback onRightClicked;
   final PharmaZ pharma;
+  final double dosage;
 
   const HeroDisplayBody(this.size,
       {Key? key,
       required this.pharma,
+      required this.dosage,
       required this.onLeftClicked,
       required this.onRightClicked})
       : super(key: key);
@@ -36,10 +38,10 @@ class _HeroDisplayBodyState extends State<HeroDisplayBody> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Spacer(
-                  flex: 5,
+                  flex: 3,
                 ),
                 Text(
-                  "1.7mL/hr",
+                  "${widget.dosage} mL/hr",
                   style: Theme.of(context)
                       .textTheme
                       .bodySmall
@@ -63,11 +65,11 @@ class _HeroDisplayBodyState extends State<HeroDisplayBody> {
                   " \"${widget.pharma.name}\"",
                   style: Theme.of(context)
                       .textTheme
-                      .bodyLarge
-                      ?.copyWith(color: Colors.grey),
+                      .titleLarge
+                      ?.copyWith(color: Colors.white),
                 ),
                 const Spacer(
-                  flex: 3,
+                  flex: 2,
                 ),
                 Text(
                   "LETHAL",
@@ -89,11 +91,11 @@ class _HeroDisplayBodyState extends State<HeroDisplayBody> {
         SizedBox(
           height: widget.size.width - 10,
           width: widget.size.width - 10,
-          child: Padding(
-              padding: const EdgeInsets.all(12.0),
+          child:  Padding(
+              padding: EdgeInsets.all(12.0),
               child: RotatedBox(
                 quarterTurns: 2,
-                child: CircularSliderWrapper(value: 5),
+                child: CircularSliderWrapper(),
               )),
         ),
         Positioned(

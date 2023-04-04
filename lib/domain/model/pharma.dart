@@ -3,15 +3,6 @@ import 'package:flutter/foundation.dart';
 
 part 'pharma.freezed.dart';
 
-// class Pharma {
-//   String name;
-//   String tag;
-//   String codeName;
-//   PharmaType pharmaType;
-//
-//   Pharma(this.name, this.tag, this.codeName, this.pharmaType);
-// }
-
 @freezed
 class PharmaZ with _$PharmaZ {
   const factory PharmaZ({

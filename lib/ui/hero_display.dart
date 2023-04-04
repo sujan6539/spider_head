@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:spider_head/dashboard.dart';
 import 'package:spider_head/ui/circular_scale.dart';
+import 'package:spider_head/ui/circular_slider_wrapper.dart';
 import 'package:spider_head/ui/circular_stroke_painter.dart';
 import 'package:spider_head/ui/hero_display_body.dart';
 
 import '../domain/model/pharma.dart';
 
-class HeroDisplay extends StatelessWidget {
+class HeroDisplay extends ConsumerWidget {
   final VoidCallback onLeftClicked;
   final VoidCallback onRightClicked;
   final PharmaZ pharma;
@@ -21,10 +23,11 @@ class HeroDisplay extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // var size = MediaQuery.of(context).size;
     // var newSize = Size(size.width - 60, size.width - 60);
     var newSize = Size(dimen, dimen);
+    int value = ref.watch(dosageProvider);
     return SafeArea(
       child: Center(
         child: Padding(
@@ -36,6 +39,7 @@ class HeroDisplay extends StatelessWidget {
                 size: newSize,
                 painter: CircularStrokePainter(radius: newSize.width / 2),
                 child: HeroDisplayBody(
+                  dosage: value/100,
                   pharma: pharma,
                   newSize,
                   onLeftClicked: onLeftClicked,

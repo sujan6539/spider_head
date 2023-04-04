@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -59,41 +60,40 @@ class Dashboard extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(24.0),
                 color: Colors.grey.shade800.withOpacity(0.8),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Canister(
-                    height: 0.5 * dimen,
-                    color: Colors.red,
-                    percent: 0.5,
-                    tag: 'n-10',
-                  ),
-                  Canister(
-                      height: 0.5 * dimen,
-                      color: Colors.pink,
-                      percent: 0.2,
-                      tag: 'b-6'),
-                  Canister(
-                      height: 0.5 * dimen,
-                      color: Colors.blue,
-                      percent: 0.3,
-                      tag: 'b- 15'),
-                  Canister(
-                      height: 0.5 * dimen,
-                      color: Colors.blue,
-                      percent: 0.3,
-                      tag: 'g- 46'),
-                  Canister(
-                      height: 0.5 * dimen,
-                      color: Colors.purple,
-                      percent: 1.0,
-                      tag: 'i-6'),
-                ],
-              ),
+              child: prepareCanisterGroup(dimen, ref),
             ),
           )
         ],
       ),
     );
+  }
+
+  Widget prepareCanisterGroup(double dimen, WidgetRef ref) {
+    List<Canister> canisterGrp = [];
+    Map<String, double> map =
+        ref.read(appStateProvider.notifier).state.pharmaState;
+    Iterator<MapEntry<String, double>> ite = map.entries.iterator;
+    while (ite.moveNext()) {
+      debugPrint(ite.toString());
+      canisterGrp.add(Canister(
+          height: 0.5 * dimen,
+          color: findColorScheme(ite.current.key),
+          codeName: ite.current.key,
+          oldValue: ite.current.value));
+    }
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: canisterGrp);
+  }
+
+  Color findColorScheme(String key) {
+    var color = getColorScheme(PharmaType.G_46_LAFFODI).primary;
+    for (var element in pharmaZList) {
+      if (element.codeName == key) {
+        color = getColorScheme(element.pharmaType).primary;
+        break;
+      }
+    }
+    return color;
   }
 }

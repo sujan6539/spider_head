@@ -1,45 +1,46 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:spider_head/domain/app_providers.dart';
 
-class Canister extends StatefulWidget {
+class Canister extends ConsumerStatefulWidget {
   final Color color;
-  final double percent;
-  final String tag;
+  final String codeName;
   final double height;
+  final double oldValue;
 
   const Canister(
       {Key? key,
       required this.height,
       required this.color,
-      required this.percent,
-      required this.tag})
+      required this.codeName,
+      required this.oldValue})
       : super(key: key);
 
   @override
-  State<Canister> createState() => _CanisterState();
+  ConsumerState<Canister> createState() => _CanisterState();
 }
 
-class _CanisterState extends State<Canister>
+class _CanisterState extends ConsumerState<Canister>
     with SingleTickerProviderStateMixin {
-  late double percent;
   late AnimationController _animationController;
   late Animation _animation;
+  double oldValue = 0;
 
   @override
   void initState() {
-    percent = widget.percent;
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 30));
-    _animation = Tween<double>(begin: percent, end: 0).animate(CurvedAnimation(
+    _animation = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.decelerate));
-    _animationController.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    double width = 0.3 * widget.height;
+    // double width = 0.3 * widget.height;
+    var watchVar = ref.watch(appStateProvider);
     return Stack(
       children: [
         Positioned(
@@ -49,7 +50,8 @@ class _CanisterState extends State<Canister>
             height: widget.height,
             width: 40,
             foregroundDecoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2)
+              color: Colors.white.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(16.0),
             ),
             decoration: BoxDecoration(
                 color: Colors.grey.withOpacity(0.1),
@@ -66,7 +68,11 @@ class _CanisterState extends State<Canister>
                   return LinearGradient(
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
-                    stops: [0, _animation.value, _animation.value],
+                    stops: [
+                      0,
+                      _animation.value * watchVar.pharmaState[widget.codeName],
+                      _animation.value * watchVar.pharmaState[widget.codeName]
+                    ],
                     colors: [widget.color, widget.color, Colors.grey.shade700],
                   ).createShader(rect);
                 },
@@ -86,7 +92,7 @@ class _CanisterState extends State<Canister>
             child: RotatedBox(
                 quarterTurns: 1,
                 child: Text(
-                  widget.tag.toUpperCase(),
+                  widget.codeName.toUpperCase(),
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.black,

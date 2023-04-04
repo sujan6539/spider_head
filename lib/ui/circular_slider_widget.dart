@@ -118,21 +118,20 @@ class _CircularSliderWidgetState extends State<CircularSliderWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-    onPanDown: _onPanDown,
-    onPanUpdate: _onPanUpdate,
-    onPanEnd: _onPanEnd,
-    child: CustomPaint(
-      painter: BasePainter(
-          baseColor: widget.baseColor,
-          selectionColor: widget.selectionColor,
-        sliderStrokeWidth: 2.0
+      onPanDown: _onPanDown,
+      onPanUpdate: _onPanUpdate,
+      onPanEnd: _onPanEnd,
+      child: CustomPaint(
+        painter: BasePainter(
+            baseColor: widget.baseColor,
+            selectionColor: widget.selectionColor,
+            sliderStrokeWidth: 2.0),
+        foregroundPainter: _painter,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: widget.child,
+        ),
       ),
-      foregroundPainter: _painter,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: widget.child,
-      ),
-    ),
     );
   }
 }

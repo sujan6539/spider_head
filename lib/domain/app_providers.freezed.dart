@@ -20,6 +20,7 @@ mixin _$GlobalAppState {
   PharmaZ? get selectedPharma => throw _privateConstructorUsedError;
   PharmaType get pharmaType => throw _privateConstructorUsedError;
   int get selectedIndex => throw _privateConstructorUsedError;
+  Map<String, double> get pharmaState => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GlobalAppStateCopyWith<GlobalAppState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $GlobalAppStateCopyWith<$Res> {
       {int defaultIndex,
       PharmaZ? selectedPharma,
       PharmaType pharmaType,
-      int selectedIndex});
+      int selectedIndex,
+      Map<String, double> pharmaState});
 
   $PharmaZCopyWith<$Res>? get selectedPharma;
 }
@@ -58,6 +60,7 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
     Object? selectedPharma = freezed,
     Object? pharmaType = null,
     Object? selectedIndex = null,
+    Object? pharmaState = null,
   }) {
     return _then(_value.copyWith(
       defaultIndex: null == defaultIndex
@@ -76,6 +79,10 @@ class _$GlobalAppStateCopyWithImpl<$Res, $Val extends GlobalAppState>
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      pharmaState: null == pharmaState
+          ? _value.pharmaState
+          : pharmaState // ignore: cast_nullable_to_non_nullable
+              as Map<String, double>,
     ) as $Val);
   }
 
@@ -104,7 +111,8 @@ abstract class _$$_GlobalAppStateCopyWith<$Res>
       {int defaultIndex,
       PharmaZ? selectedPharma,
       PharmaType pharmaType,
-      int selectedIndex});
+      int selectedIndex,
+      Map<String, double> pharmaState});
 
   @override
   $PharmaZCopyWith<$Res>? get selectedPharma;
@@ -125,6 +133,7 @@ class __$$_GlobalAppStateCopyWithImpl<$Res>
     Object? selectedPharma = freezed,
     Object? pharmaType = null,
     Object? selectedIndex = null,
+    Object? pharmaState = null,
   }) {
     return _then(_$_GlobalAppState(
       defaultIndex: null == defaultIndex
@@ -143,6 +152,10 @@ class __$$_GlobalAppStateCopyWithImpl<$Res>
           ? _value.selectedIndex
           : selectedIndex // ignore: cast_nullable_to_non_nullable
               as int,
+      pharmaState: null == pharmaState
+          ? _value._pharmaState
+          : pharmaState // ignore: cast_nullable_to_non_nullable
+              as Map<String, double>,
     ));
   }
 }
@@ -154,7 +167,9 @@ class _$_GlobalAppState implements _GlobalAppState {
       {required this.defaultIndex,
       this.selectedPharma,
       this.pharmaType = PharmaType.G_46_LAFFODI,
-      this.selectedIndex = 0});
+      this.selectedIndex = 0,
+      final Map<String, double> pharmaState = const {}})
+      : _pharmaState = pharmaState;
 
   @override
   final int defaultIndex;
@@ -166,10 +181,18 @@ class _$_GlobalAppState implements _GlobalAppState {
   @override
   @JsonKey()
   final int selectedIndex;
+  final Map<String, double> _pharmaState;
+  @override
+  @JsonKey()
+  Map<String, double> get pharmaState {
+    if (_pharmaState is EqualUnmodifiableMapView) return _pharmaState;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_pharmaState);
+  }
 
   @override
   String toString() {
-    return 'GlobalAppState(defaultIndex: $defaultIndex, selectedPharma: $selectedPharma, pharmaType: $pharmaType, selectedIndex: $selectedIndex)';
+    return 'GlobalAppState(defaultIndex: $defaultIndex, selectedPharma: $selectedPharma, pharmaType: $pharmaType, selectedIndex: $selectedIndex, pharmaState: $pharmaState)';
   }
 
   @override
@@ -184,12 +207,19 @@ class _$_GlobalAppState implements _GlobalAppState {
             (identical(other.pharmaType, pharmaType) ||
                 other.pharmaType == pharmaType) &&
             (identical(other.selectedIndex, selectedIndex) ||
-                other.selectedIndex == selectedIndex));
+                other.selectedIndex == selectedIndex) &&
+            const DeepCollectionEquality()
+                .equals(other._pharmaState, _pharmaState));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, defaultIndex, selectedPharma, pharmaType, selectedIndex);
+      runtimeType,
+      defaultIndex,
+      selectedPharma,
+      pharmaType,
+      selectedIndex,
+      const DeepCollectionEquality().hash(_pharmaState));
 
   @JsonKey(ignore: true)
   @override
@@ -203,7 +233,8 @@ abstract class _GlobalAppState implements GlobalAppState {
       {required final int defaultIndex,
       final PharmaZ? selectedPharma,
       final PharmaType pharmaType,
-      final int selectedIndex}) = _$_GlobalAppState;
+      final int selectedIndex,
+      final Map<String, double> pharmaState}) = _$_GlobalAppState;
 
   @override
   int get defaultIndex;
@@ -213,6 +244,8 @@ abstract class _GlobalAppState implements GlobalAppState {
   PharmaType get pharmaType;
   @override
   int get selectedIndex;
+  @override
+  Map<String, double> get pharmaState;
   @override
   @JsonKey(ignore: true)
   _$$_GlobalAppStateCopyWith<_$_GlobalAppState> get copyWith =>

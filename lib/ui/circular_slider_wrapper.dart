@@ -1,41 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'circular_slider_widget.dart';
 
-class CircularSliderWrapper extends StatefulWidget {
-  final int value;
+final dosageProvider = StateProvider<int>((ref) => 5);
 
-  const CircularSliderWrapper({Key? key, required this.value})
+class CircularSliderWrapper extends ConsumerWidget {
+
+  const CircularSliderWrapper({Key? key})
       : super(key: key);
 
   @override
-  State<CircularSliderWrapper> createState() => _CircularSliderWrapperState();
-}
-
-class _CircularSliderWrapperState extends State<CircularSliderWrapper> {
-  int localValue = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    localValue = widget.value;
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var provider = ref.watch(dosageProvider);
     return Container(
       width: 400,
       height: 400,
       child: CircularSliderWidget(
         intervals: 99,
         init: 1,
-        end: localValue,
+        end: provider,
         onSelectionChange: (valueInitValue, endInitValue) {
-          setState(() {
-            if (endInitValue < 95) {
-              localValue = endInitValue;
-            }
-          });
+          if (endInitValue < 95) {
+            ref.read(dosageProvider.notifier).state = endInitValue;
+          }
         },
         baseColor: Colors.black,
         selectionColor: Theme.of(context).colorScheme.primary,
